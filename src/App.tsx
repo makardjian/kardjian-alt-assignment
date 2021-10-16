@@ -118,24 +118,24 @@ const App = () => {
   }, [shouldFetchMovieDetails]);
 
   return (
-    <MovieDetailsContext.Provider
-      value={{
-        toggleMovieDetails: onToggleMovieDetails,
-        updateMovieDetailsId: onUpdateMovieDetailsId,
-        showMovieDetails,
-        movieDetails,
-        detailsDataIsLoading,
-      }}
-    >
-      <div className={classes.root}>
-        <h1 className={classes.header}>Cinema Center</h1>
-        <div className={classes.contentContainer}>
-          <div className={classes.searchBarAndResultsContainer}>
-            <MovieSearchBar
-              value={inputValue}
-              onInputChange={onInputChange}
-              onSearch={onSearch}
-            />
+    <div className={classes.root}>
+      <h1 className={classes.header}>Cinema Center</h1>
+      <div className={classes.contentContainer}>
+        <div className={classes.searchBarAndResultsContainer}>
+          <MovieSearchBar
+            value={inputValue}
+            onInputChange={onInputChange}
+            onSearch={onSearch}
+          />
+          <MovieDetailsContext.Provider
+            value={{
+              toggleMovieDetails: onToggleMovieDetails,
+              updateMovieDetailsId: onUpdateMovieDetailsId,
+              showMovieDetails,
+              movieDetails,
+              detailsDataIsLoading,
+            }}
+          >
             <MovieSearchResults
               movies={searchResults}
               dataIsLoading={searchDataIsLoading}
@@ -143,22 +143,22 @@ const App = () => {
               showSearchError={searchError}
             />
             {showMovieDetails && <MovieDetails />}
-          </div>
-          {searchResults.length && pageCount > 0 ? (
-            <ReactPagingate
-              previousLabel='prev'
-              nextLabel='next'
-              breakLabel='...'
-              pageCount={pageCount}
-              pageRangeDisplayed={4}
-              onPageChange={onPageChange}
-              containerClassName={classes.paginationContainer}
-              activeClassName={classes.pageIsActive}
-            />
-          ) : null}
+          </MovieDetailsContext.Provider>
         </div>
+        {searchResults.length && pageCount > 0 ? (
+          <ReactPagingate
+            previousLabel='prev'
+            nextLabel='next'
+            breakLabel='...'
+            pageCount={pageCount}
+            pageRangeDisplayed={4}
+            onPageChange={onPageChange}
+            containerClassName={classes.paginationContainer}
+            activeClassName={classes.pageIsActive}
+          />
+        ) : null}
       </div>
-    </MovieDetailsContext.Provider>
+    </div>
   );
 };
 
