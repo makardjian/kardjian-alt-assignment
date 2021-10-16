@@ -1,5 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import { isMobile } from 'react-device-detect';
+
+console.log({ isMobile });
 
 const useStyles = makeStyles({
   root: {
@@ -23,10 +26,11 @@ const useStyles = makeStyles({
     alignItems: 'center',
   },
   searchBarAndResultsContainer: {
-    width: '40%',
+    width: `${isMobile ? '100%' : '40%'}`,
   },
   paginationContainer: {
     display: 'flex',
+    justifyContent: 'center',
     listStyle: 'none',
     '& a': {
       cursor: 'pointer',
