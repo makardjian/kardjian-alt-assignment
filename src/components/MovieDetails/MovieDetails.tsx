@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Dialog,
   Box,
@@ -11,22 +11,18 @@ import {
   Button,
 } from '@mui/material';
 import type { MovieDetailsType } from './MovieDetails.type';
+import { MovieDetailsContext } from '../../context/MovieDetailsContext';
 import noPosterAvailable from '../../static/no-poster-available.png';
 import { useStyles, sxStyles } from './MovieDetails.styles';
 
-type MovieDetailsProps = {
-  showMovieDetails: boolean;
-  toggleMovieDetails: () => void;
-  movieDetails: MovieDetailsType;
-  dataIsLoading: boolean;
-};
+const MovieDetails = () => {
+  const {
+    showMovieDetails,
+    toggleMovieDetails,
+    movieDetails: movie,
+    detailsDataIsLoading: dataIsLoading,
+  } = useContext(MovieDetailsContext);
 
-const MovieDetails = ({
-  showMovieDetails,
-  toggleMovieDetails,
-  movieDetails: movie,
-  dataIsLoading,
-}: MovieDetailsProps) => {
   const keysToRenderInDescription = Object.keys(movie).filter((key) => {
     return key !== 'Poster' && key !== 'Title';
   });

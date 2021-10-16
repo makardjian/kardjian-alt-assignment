@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactPagingate from 'react-paginate';
+import { MovieDetailsContext } from './context/MovieDetailsContext';
 import MovieSearchBar from './components/MovieSearchBar';
 import MovieSearchResults from './components/MovieSearchResults/MovieSearchResults';
 import MovieDetails from './components/MovieDetails/MovieDetails';
@@ -117,46 +118,47 @@ const App = () => {
   }, [shouldFetchMovieDetails]);
 
   return (
-    <div className={classes.root}>
-      <h1 className={classes.header}>Cinema Center</h1>
-      <div className={classes.contentContainer}>
-        <div className={classes.searchBarAndResultsContainer}>
-          <MovieSearchBar
-            value={inputValue}
-            onInputChange={onInputChange}
-            onSearch={onSearch}
-          />
-          <MovieSearchResults
-            movies={searchResults}
-            dataIsLoading={searchDataIsLoading}
-            showNoResultsMessage={showNoResultsMessage}
-            toggleMovieDetails={onToggleMovieDetails}
-            updateMovieDetailsId={onUpdateMovieDetailsId}
-            showSearchError={searchError}
-          />
-          {showMovieDetails && (
-            <MovieDetails
-              showMovieDetails
-              toggleMovieDetails={onToggleMovieDetails}
-              movieDetails={movieDetails}
-              dataIsLoading={detailsDataIsLoading}
+    <MovieDetailsContext.Provider
+      value={{
+        toggleMovieDetails: onToggleMovieDetails,
+        updateMovieDetailsId: onUpdateMovieDetailsId,
+        showMovieDetails,
+        movieDetails,
+        detailsDataIsLoading,
+      }}
+    >
+      <div className={classes.root}>
+        <h1 className={classes.header}>Cinema Center</h1>
+        <div className={classes.contentContainer}>
+          <div className={classes.searchBarAndResultsContainer}>
+            <MovieSearchBar
+              value={inputValue}
+              onInputChange={onInputChange}
+              onSearch={onSearch}
             />
-          )}
+            <MovieSearchResults
+              movies={searchResults}
+              dataIsLoading={searchDataIsLoading}
+              showNoResultsMessage={showNoResultsMessage}
+              showSearchError={searchError}
+            />
+            {showMovieDetails && <MovieDetails />}
+          </div>
+          {searchResults.length && pageCount > 0 ? (
+            <ReactPagingate
+              previousLabel='prev'
+              nextLabel='next'
+              breakLabel='...'
+              pageCount={pageCount}
+              pageRangeDisplayed={4}
+              onPageChange={onPageChange}
+              containerClassName={classes.paginationContainer}
+              activeClassName={classes.pageIsActive}
+            />
+          ) : null}
         </div>
-        {searchResults.length && pageCount > 0 ? (
-          <ReactPagingate
-            previousLabel='prev'
-            nextLabel='next'
-            breakLabel='...'
-            pageCount={pageCount}
-            pageRangeDisplayed={4}
-            onPageChange={onPageChange}
-            containerClassName={classes.paginationContainer}
-            activeClassName={classes.pageIsActive}
-          />
-        ) : null}
       </div>
-    </div>
+    </MovieDetailsContext.Provider>
   );
 };
 

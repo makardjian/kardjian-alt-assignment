@@ -9,8 +9,6 @@ type MovieSearchResultsProps = {
   movies: MovieSearchResultType[];
   dataIsLoading: boolean;
   showNoResultsMessage: boolean;
-  toggleMovieDetails: () => void;
-  updateMovieDetailsId: (id: string) => void;
   showSearchError: boolean;
 };
 
@@ -29,8 +27,6 @@ const MovieSearchResults = ({
   movies,
   dataIsLoading,
   showNoResultsMessage,
-  toggleMovieDetails,
-  updateMovieDetailsId,
   showSearchError,
 }: MovieSearchResultsProps) => {
   const classes = useStyles();
@@ -46,17 +42,12 @@ const MovieSearchResults = ({
             <AlertTitle>Error</AlertTitle>
             There was a problem fetching your search results. Please check your
             network connection. If the issue persists, please reach out to
-            help@branch.io.
+            help@omdbapi.com
           </Alert>
         </Box>
       ) : (
         movies.map((movie) => (
-          <MovieSearchResult
-            movie={movie}
-            key={movie.imdbID}
-            toggleMovieDetails={toggleMovieDetails}
-            updateMovieDetailsId={updateMovieDetailsId}
-          />
+          <MovieSearchResult movie={movie} key={movie.imdbID} />
         ))
       )}
     </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Card,
   CardMedia,
@@ -8,12 +8,7 @@ import {
 } from '@mui/material';
 import noPosterAvailable from '../../static/no-poster-available.png';
 import type { MovieSearchResult as MovieSearchResultType } from './MovieSearchResult.type';
-
-type MovieSearchResultProps = {
-  movie: MovieSearchResultType;
-  toggleMovieDetails: () => void;
-  updateMovieDetailsId: (id: string) => void;
-};
+import { MovieDetailsContext } from '../../context/MovieDetailsContext';
 
 const sxStyles = {
   card: {
@@ -41,11 +36,10 @@ const sxStyles = {
   } as const,
 };
 
-const MovieSearchResult = ({
-  movie,
-  toggleMovieDetails,
-  updateMovieDetailsId,
-}: MovieSearchResultProps) => {
+const MovieSearchResult = ({ movie }: { movie: MovieSearchResultType }) => {
+  const { updateMovieDetailsId, toggleMovieDetails } =
+    useContext(MovieDetailsContext);
+
   const onMovieClick = (id: string) => {
     updateMovieDetailsId(id);
     toggleMovieDetails();
