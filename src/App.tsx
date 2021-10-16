@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactPagingate from 'react-paginate';
+import debounce from 'lodash.debounce';
 import MovieSearchBar from './components/MovieSearchBar';
 import MovieSearchResults from './components/MovieSearchResults/MovieSearchResults';
 import MovieDetails from './components/MovieDetails/MovieDetails';
@@ -8,12 +9,12 @@ import type { MovieDetailsType } from './components/MovieDetails/MovieDetails.ty
 import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDetailsKeys';
 
 const RESULTS_PER_PAGE = 10;
+const DEBOUNCE_TIME = 300;
 
 const App = () => {
   const classes = useStyles();
 
   // USER INPUT
-  const [inputValue, setInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
   // SEARCH RESULTS
@@ -78,17 +79,12 @@ const App = () => {
     }
   };
 
-  const onInputChange = (newValue: string) => {
-    setInputValue(newValue);
+  const onInputChange = debounce((newValue: string) => {
     setShowNoResultsMessage(false);
     setSearchError(false);
-  };
-
-  const onSearch = () => {
-    setCurrentPage(1);
-    setSearchQuery(inputValue);
+    setSearchQuery(newValue.trim());
     setShouldFetchSearchResults(true);
-  };
+  }, DEBOUNCE_TIME);
 
   const onToggleMovieDetails = () => {
     setShowMovieDetails(!showMovieDetails);
@@ -121,11 +117,7 @@ const App = () => {
       <h1 className={classes.header}>Cinema Center</h1>
       <div className={classes.contentContainer}>
         <div className={classes.searchBarAndResultsContainer}>
-          <MovieSearchBar
-            value={inputValue}
-            onInputChange={onInputChange}
-            onSearch={onSearch}
-          />
+          <MovieSearchBar onInputChange={onInputChange} />
           <MovieSearchResults
             movies={searchResults}
             dataIsLoading={searchDataIsLoading}
