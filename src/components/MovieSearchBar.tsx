@@ -1,5 +1,5 @@
 import React, { KeyboardEvent } from 'react';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 type MovieSearchBarProps = {
@@ -34,8 +34,8 @@ const MovieSearchBar = ({
   };
 
   return (
-    <Box className={classes.container}>
-      <Box className={classes.searchBar}>
+    <div className={classes.container}>
+      <div className={classes.searchBar}>
         <TextField
           id='outlined-basic'
           label='Search for a movie!'
@@ -46,11 +46,11 @@ const MovieSearchBar = ({
           onChange={(e) => onInputChange(e.target.value)}
           onKeyPress={(e) => onKeyPress(e)}
         />
-      </Box>
+      </div>
       <Button variant='contained' size='medium' onClick={onSearch}>
         Search
       </Button>
-    </Box>
+    </div>
   );
 };
 

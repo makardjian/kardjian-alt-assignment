@@ -1,9 +1,10 @@
 import React from 'react';
-import { CircularProgress, Alert, AlertTitle, Box } from '@mui/material';
+import { CircularProgress, Alert, AlertTitle } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import MovieSearchResult from '../MovieSearchResult/MovieSearchResult';
 import NoMovieResults from './NoMovieResults';
 import type { MovieSearchResult as MovieSearchResultType } from '../MovieSearchResult/MovieSearchResult.type';
+import { API_ERROR_MESSAGE } from './ApiError.constants';
 
 type MovieSearchResultsProps = {
   movies: MovieSearchResultType[];
@@ -40,9 +41,7 @@ const MovieSearchResults = ({
         <div className={classes.alertContainer}>
           <Alert className={classes.alertMessage} severity='error'>
             <AlertTitle>Error</AlertTitle>
-            There was a problem fetching your search results. Please check your
-            network connection. If the issue persists, please reach out to
-            help@omdbapi.com
+            {API_ERROR_MESSAGE}
           </Alert>
         </div>
       ) : (
