@@ -9,10 +9,10 @@ import {
   Divider,
   Button,
 } from '@mui/material';
-import type { MovieDetailsType } from './MovieDetails.type';
+import { isMobile } from 'react-device-detect';
+import { WebDialogContent } from './WebDialogContent';
 import { MovieDetailsContext } from '../../context/MovieDetailsContext';
-import noPosterAvailable from '../../static/no-poster-available.png';
-import { useStyles, sxStyles } from './MovieDetails.styles';
+import { useStyles } from './MovieDetails.styles';
 
 const MovieDetails = () => {
   const {
@@ -45,33 +45,13 @@ const MovieDetails = () => {
           </DialogTitle>
           <Divider variant='middle' />
           <DialogContent>
-            <div className={classes.dialogContent}>
-              <div className={classes.detailsContainer}>
-                {(keysToRenderInDescription as Array<keyof typeof movie>).map(
-                  (key: keyof MovieDetailsType, index: number) => {
-                    return (
-                      <div key={`${key}-${index}`}>
-                        <Typography sx={sxStyles.detailsLabel}>
-                          {key}
-                        </Typography>
-                        <Typography>{movie[key]}</Typography>
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-              <div className={classes.posterContainer}>
-                <img
-                  className={classes.moviePosterImage}
-                  alt={`${movie.Title} Poster`}
-                  src={
-                    movie.Poster && movie.Poster !== 'N/A'
-                      ? movie.Poster
-                      : noPosterAvailable
-                  }
-                ></img>
-              </div>
-            </div>
+            {isMobile ? (
+              <div> hello world</div>
+            ) : (
+              <WebDialogContent
+                keysToRenderInDescription={keysToRenderInDescription}
+              />
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={toggleMovieDetails} variant='outlined'>
