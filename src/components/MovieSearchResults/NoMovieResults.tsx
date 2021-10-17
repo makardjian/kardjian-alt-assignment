@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import noResultsCameraMan from '../../static/no-results-camera-man.png';
 
@@ -13,15 +14,17 @@ const useStyles = makeStyles({
 const NoMovieResults = () => {
   const classes = useStyles();
   return (
-    <div>
+    <Box>
       <img
         className={classes.image}
         src={noResultsCameraMan}
         alt='No Results'
       ></img>
-      <h2>Oh no! We couldn't find any results for that search.</h2>
-      <h2>Please try again.</h2>
-    </div>
+      <Typography variant='h6'>
+        Oh no! We couldn't find any results for that search.
+      </Typography>
+      <Typography variant='h6'>Please try again.</Typography>
+    </Box>
   );
 };
 
