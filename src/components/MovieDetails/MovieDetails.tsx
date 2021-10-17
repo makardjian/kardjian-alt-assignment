@@ -9,10 +9,18 @@ import {
   Divider,
   Button,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { isMobile } from 'react-device-detect';
 import { WebDialogContent } from './WebDialogContent';
+import { MobileDialogContent } from './MobileDialogContent';
 import { MovieDetailsContext } from '../../context/MovieDetailsContext';
-import { useStyles } from './MovieDetails.styles';
+
+const useStyles = makeStyles({
+  movieTitle: {
+    textAlign: 'center',
+    fontSize: '30px',
+  },
+});
 
 const MovieDetails = () => {
   const {
@@ -46,7 +54,9 @@ const MovieDetails = () => {
           <Divider variant='middle' />
           <DialogContent>
             {isMobile ? (
-              <div> hello world</div>
+              <MobileDialogContent
+                keysToRenderInDescription={keysToRenderInDescription}
+              />
             ) : (
               <WebDialogContent
                 keysToRenderInDescription={keysToRenderInDescription}
