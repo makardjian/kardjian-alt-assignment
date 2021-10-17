@@ -7,7 +7,6 @@ export type MovieDetailsType = {
   Language: string;
   Plot: string;
   Poster: string;
-  Rated: string;
   Released: string;
   Runtime: string;
   Title: string;

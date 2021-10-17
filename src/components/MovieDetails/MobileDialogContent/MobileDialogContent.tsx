@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Typography } from '@mui/material';
-import { MovieDetailsContext } from '../../context/MovieDetailsContext';
-import type { MovieDetailsType } from './MovieDetails.type';
+import { MovieDetailsContext } from '../../../context/MovieDetailsContext';
+import type { MovieDetailsType } from '../MovieDetails.type';
 import { useStyles, sxStyles } from './MobileDialogContent.styles';
-import noPosterAvailable from '../../static/no-poster-available.png';
+import noPosterAvailable from '../../../static/no-poster-available.png';
 
 export const MobileDialogContent = ({ keysToRenderInDescription }) => {
   const { movieDetails: movie } = useContext(MovieDetailsContext);

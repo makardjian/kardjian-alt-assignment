@@ -11,8 +11,8 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { isMobile } from 'react-device-detect';
-import { WebDialogContent } from './WebDialogContent';
-import { MobileDialogContent } from './MobileDialogContent';
+import { WebDialogContent } from './WebDialogContent/WebDialogContent';
+import { MobileDialogContent } from './MobileDialogContent/MobileDialogContent';
 import { MovieDetailsContext } from '../../context/MovieDetailsContext';
 
 const useStyles = makeStyles({
