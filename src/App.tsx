@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactPagingate from 'react-paginate';
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { MovieDetailsContext } from './context/MovieDetailsContext';
 import MovieSearchBar from './components/MovieSearchBar';
 import MovieSearchResults from './components/MovieSearchResults/MovieSearchResults';

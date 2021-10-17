@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import {
   Dialog,
-  Box,
   Typography,
   CircularProgress,
   DialogContent,
@@ -47,7 +46,7 @@ const MovieDetails = () => {
           <Divider variant='middle' />
           <DialogContent>
             <div className={classes.dialogContent}>
-              <Box className={classes.detailsContainer}>
+              <div className={classes.detailsContainer}>
                 {(keysToRenderInDescription as Array<keyof typeof movie>).map(
                   (key: keyof MovieDetailsType, index: number) => {
                     return (
@@ -60,8 +59,8 @@ const MovieDetails = () => {
                     );
                   }
                 )}
-              </Box>
-              <Box className={classes.posterContainer}>
+              </div>
+              <div className={classes.posterContainer}>
                 <img
                   className={classes.moviePosterImage}
                   alt={`${movie.Title} Poster`}
@@ -71,7 +70,7 @@ const MovieDetails = () => {
                       : noPosterAvailable
                   }
                 ></img>
-              </Box>
+              </div>
             </div>
           </DialogContent>
           <DialogActions>

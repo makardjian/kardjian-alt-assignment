@@ -1,38 +1,9 @@
 import React, { useContext } from 'react';
 import { Card, CardMedia, CardActionArea, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import noPosterAvailable from '../../static/no-poster-available.png';
 import type { MovieSearchResult as MovieSearchResultType } from './MovieSearchResult.type';
 import { MovieDetailsContext } from '../../context/MovieDetailsContext';
-
-const sxStyles = {
-  card: {
-    my: 3,
-  } as const,
-  cardActionArea: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    py: 4,
-  } as const,
-  moviePoster: {
-    width: '150px',
-    height: '210px',
-    borderRadius: 2,
-    mr: 4,
-  } as const,
-};
-
-const useStyles = makeStyles({
-  titleAndYear: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    textAlign: 'start',
-    margin: '0px 24px',
-  },
-});
+import { sxStyles, useStyles } from './MovieSearchResult.styles';
 
 const MovieSearchResult = ({ movie }: { movie: MovieSearchResultType }) => {
   const { updateMovieDetailsId, toggleMovieDetails } =
