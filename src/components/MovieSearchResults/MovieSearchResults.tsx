@@ -37,14 +37,14 @@ const MovieSearchResults = ({
       ) : showNoResultsMessage ? (
         <NoMovieResults />
       ) : showSearchError ? (
-        <Box className={classes.alertContainer}>
+        <div className={classes.alertContainer}>
           <Alert className={classes.alertMessage} severity='error'>
             <AlertTitle>Error</AlertTitle>
             There was a problem fetching your search results. Please check your
             network connection. If the issue persists, please reach out to
             help@omdbapi.com
           </Alert>
-        </Box>
+        </div>
       ) : (
         movies.map((movie) => (
           <MovieSearchResult movie={movie} key={movie.imdbID} />

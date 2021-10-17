@@ -119,12 +119,12 @@ const App = () => {
   }, [shouldFetchMovieDetails]);
 
   return (
-    <Box className={classes.root}>
+    <div className={classes.root}>
       <Typography variant='h4' className={classes.header}>
         Cinema Center
       </Typography>
-      <Box className={classes.contentContainer}>
-        <Box className={classes.searchBarAndResultsContainer}>
+      <div className={classes.contentContainer}>
+        <div className={classes.searchBarAndResultsContainer}>
           <MovieSearchBar
             value={inputValue}
             onInputChange={onInputChange}
@@ -160,9 +160,9 @@ const App = () => {
               breakLabel='...'
             />
           ) : null}
-        </Box>
-      </Box>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 

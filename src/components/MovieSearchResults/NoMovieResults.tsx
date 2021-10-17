@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 const NoMovieResults = () => {
   const classes = useStyles();
   return (
-    <Box>
+    <div>
       <img
         className={classes.image}
         src={noResultsCameraMan}
@@ -24,7 +24,7 @@ const NoMovieResults = () => {
         Oh no! We couldn't find any results for that search.
       </Typography>
       <Typography variant='h6'>Please try again.</Typography>
-    </Box>
+    </div>
   );
 };
 

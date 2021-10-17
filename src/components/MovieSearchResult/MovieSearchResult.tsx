@@ -52,18 +52,18 @@ const MovieSearchResult = ({ movie }: { movie: MovieSearchResultType }) => {
         sx={sxStyles.cardActionArea}
       >
         <Box sx={sxStyles.titleAndYear}>
-          <Box>
+          <div>
             <Typography color='text.secondary'>Title:</Typography>
             <Typography variant='h6'>
               {movie.Title || '[Title Not Found]'}
             </Typography>
-          </Box>
-          <Box>
+          </div>
+          <div>
             <Typography color='text.secondary'>Year:</Typography>
             <Typography variant='h6'>
               {movie.Year || '[Release Year Not Found]'}
             </Typography>
-          </Box>
+          </div>
         </Box>
         <CardMedia
           component='img'
