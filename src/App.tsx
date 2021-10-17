@@ -9,7 +9,10 @@ import useStyles from './App.styles';
 import type { MovieDetailsType } from './components/MovieDetails/MovieDetails.type';
 import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDetailsKeys';
 
+const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
 const RESULTS_PER_PAGE = 10;
+
+console.log({ API_KEY });
 
 const App = () => {
   const classes = useStyles();
@@ -40,7 +43,7 @@ const App = () => {
   const fetchApiSearchResults = async () => {
     setSearchDataIsLoading(true);
     setShouldFetchSearchResults(false);
-    const URL = `http://www.omdbapi.com/?apikey=9bc26618&s=${searchQuery}&type=movie&page=${currentPage}`;
+    const URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&type=movie&page=${currentPage}`;
     try {
       const response = await fetch(URL);
       const responseData = await response.json();
@@ -67,7 +70,7 @@ const App = () => {
   const fetchApiMovieDetails = async (imdbID: string) => {
     setShouldFetchMovieDetails(false);
     setDetailsDataIsLoading(true);
-    const URL = `http://www.omdbapi.com/?apikey=9bc26618&i=${imdbID}&type=movie`;
+    const URL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}&type=movie`;
     try {
       const response = await fetch(URL);
       const movieDetails = await response.json();

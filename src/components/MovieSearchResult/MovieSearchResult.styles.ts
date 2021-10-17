@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles';
 export const sxStyles = {
   card: {
     my: 3,
+    backgroundColor: '#f0d986',
   } as const,
   cardActionArea: {
     display: 'flex',
