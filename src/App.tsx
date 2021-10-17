@@ -147,19 +147,20 @@ const App = () => {
             />
             {showMovieDetails && <MovieDetails />}
           </MovieDetailsContext.Provider>
+          {searchResults.length && pageCount > 0 ? (
+            <ReactPagingate
+              pageCount={pageCount}
+              pageRangeDisplayed={4}
+              marginPagesDisplayed={2}
+              onPageChange={onPageChange}
+              containerClassName={classes.paginationContainer}
+              activeClassName={classes.pageIsActive}
+              previousLabel='&larr;'
+              nextLabel='&rarr;'
+              breakLabel='...'
+            />
+          ) : null}
         </Box>
-        {searchResults.length && pageCount > 0 ? (
-          <ReactPagingate
-            previousLabel='prev'
-            nextLabel='next'
-            breakLabel='...'
-            pageCount={pageCount}
-            pageRangeDisplayed={4}
-            onPageChange={onPageChange}
-            containerClassName={classes.paginationContainer}
-            activeClassName={classes.pageIsActive}
-          />
-        ) : null}
       </Box>
     </Box>
   );

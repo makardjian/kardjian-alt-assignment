@@ -27,18 +27,23 @@ const useStyles = makeStyles({
   },
   searchBarAndResultsContainer: {
     width: `${isMobile ? '100%' : '40%'}`,
+    minWidth: `${isMobile ? 'unset' : '450px'}`,
   },
   paginationContainer: {
-    display: 'flex',
-    justifyContent: 'center',
     listStyle: 'none',
+    padding: 'unset',
+    '& li': {
+      display: 'inline-block',
+    },
     '& a': {
-      cursor: 'pointer',
+      margin: '5px',
       padding: '10px',
-      borderRadius: '5px',
+      display: 'inline-block',
+      cursor: 'pointer',
+      backgroundColor: '#fff',
       border: '1px solid #241e0c',
-      color: '#241e0c',
-      marginLeft: '10px',
+      borderRadius: '5px',
+      minWidth: '1rem',
     },
   },
   pageIsActive: {
