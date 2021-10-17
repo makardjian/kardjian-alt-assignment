@@ -11,9 +11,10 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { isMobile } from 'react-device-detect';
-import { WebDialogContent } from './WebDialogContent/WebDialogContent';
-import { MobileDialogContent } from './MobileDialogContent/MobileDialogContent';
+import WebDialogContent from './WebDialogContent/WebDialogContent';
+import MobileDialogContent from './MobileDialogContent/MobileDialogContent';
 import { MovieDetailsContext } from '../../context/MovieDetailsContext';
+import type { MovieDetailsType } from './MovieDetails.type';
 
 const useStyles = makeStyles({
   movieTitle: {
@@ -30,11 +31,11 @@ const MovieDetails = () => {
     detailsDataIsLoading: dataIsLoading,
   } = useContext(MovieDetailsContext);
 
+  const classes = useStyles();
+
   const keysToRenderInDescription = Object.keys(movie).filter((key) => {
     return key !== 'Poster' && key !== 'Title';
-  });
-
-  const classes = useStyles();
+  }) as Array<keyof MovieDetailsType>;
 
   return (
     <>

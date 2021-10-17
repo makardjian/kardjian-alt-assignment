@@ -5,7 +5,11 @@ import type { MovieDetailsType } from '../MovieDetails.type';
 import { useStyles, sxStyles } from './MobileDialogContent.styles';
 import noPosterAvailable from '../../../static/no-poster-available.png';
 
-export const MobileDialogContent = ({ keysToRenderInDescription }) => {
+const MobileDialogContent = ({
+  keysToRenderInDescription,
+}: {
+  keysToRenderInDescription: Array<keyof MovieDetailsType>;
+}) => {
   const { movieDetails: movie } = useContext(MovieDetailsContext);
   const classes = useStyles();
   return (
@@ -36,3 +40,5 @@ export const MobileDialogContent = ({ keysToRenderInDescription }) => {
     </div>
   );
 };
+
+export default MobileDialogContent;
