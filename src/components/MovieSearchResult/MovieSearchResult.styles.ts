@@ -1,9 +1,10 @@
 import { makeStyles } from '@mui/styles';
+import Colors from '../../Colors';
 
 export const sxStyles = {
   card: {
     my: 3,
-    backgroundColor: '#FAF9F6 ',
+    backgroundColor: Colors['@eggshell'],
   } as const,
   cardActionArea: {
     display: 'flex',

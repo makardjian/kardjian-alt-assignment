@@ -15,6 +15,7 @@ import WebDialogContent from './WebDialogContent/WebDialogContent';
 import MobileDialogContent from './MobileDialogContent/MobileDialogContent';
 import { MovieDetailsContext } from '../../context/MovieDetailsContext';
 import type { MovieDetailsType } from './MovieDetails.type';
+import Colors from '../../Colors';
 
 const useStyles = makeStyles({
   movieTitle: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-const backgroundColor = '#FAF9F6';
+const backgroundColor = Colors['@eggshell'];
 
 const MovieDetails = () => {
   const {

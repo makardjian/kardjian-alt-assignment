@@ -1,10 +1,11 @@
 import { makeStyles } from '@mui/styles';
 import { isMobile } from 'react-device-detect';
+import Colors from './Colors';
 
 const useStyles = makeStyles({
   root: {
     textAlign: 'center',
-    backgroundColor: '#ADD9F4',
+    backgroundColor: Colors['@lightBlue'],
     minHeight: '100vh',
     padding: 20,
   },
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
       padding: '10px',
       display: 'inline-block',
       cursor: 'pointer',
-      backgroundColor: '#FAF9F6',
+      backgroundColor: Colors['@eggshell'],
       border: '1px solid #241e0c',
       borderRadius: '5px',
       minWidth: '1rem',
@@ -45,8 +46,8 @@ const useStyles = makeStyles({
   },
   pageIsActive: {
     '& a': {
-      backgroundColor: '#47ccde',
-      color: '#FAF9F6',
+      backgroundColor: Colors['@turqouise'],
+      color: Colors['@eggshell'],
     },
   },
 });
