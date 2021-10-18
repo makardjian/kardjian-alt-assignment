@@ -77,7 +77,7 @@ const App = () => {
       setMovieDetails(cleanMovieDetails);
       setDetailsDataIsLoading(false);
     } catch (e) {
-      console.log({ e });
+      console.log({ error: e });
     }
   };
 
