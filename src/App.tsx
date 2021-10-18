@@ -9,7 +9,7 @@ import useStyles from './App.styles';
 import type { MovieDetailsType } from './components/MovieDetails/MovieDetails.type';
 import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDetailsKeys';
 
-const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
+const API_KEY = '9bc26618'; // would put this in a .env file if not submitting via zip.
 const RESULTS_PER_PAGE = 10;
 
 const App = () => {
