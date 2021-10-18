@@ -29,5 +29,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Author Information
 
-Developer: Michael Kardjian\
-Date Sumbmitted: October 18, 2021
+**Developer:** Michael Kardjian\
+**Date Sumbmitted:** October 18, 2021
