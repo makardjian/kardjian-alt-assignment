@@ -40,8 +40,9 @@ const MovieSearchBar = ({
           id='outlined-basic'
           label='Search for a movie!'
           variant='outlined'
-          fullWidth
+          autoComplete='off'
           size='small'
+          fullWidth
           value={value}
           onChange={(e) => onInputChange(e.target.value)}
           onKeyPress={(e) => onKeyPress(e)}

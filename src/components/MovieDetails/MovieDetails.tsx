@@ -23,6 +23,8 @@ const useStyles = makeStyles({
   },
 });
 
+const backgroundColor = '#FAF9F6';
+
 const MovieDetails = () => {
   const {
     showMovieDetails,
@@ -47,13 +49,13 @@ const MovieDetails = () => {
           onClose={toggleMovieDetails}
           maxWidth='md'
         >
-          <DialogTitle>
+          <DialogTitle sx={{ backgroundColor }}>
             <Typography className={classes.movieTitle} variant='h5'>
               {movie.Title}
             </Typography>
           </DialogTitle>
           <Divider variant='middle' />
-          <DialogContent>
+          <DialogContent sx={{ backgroundColor }}>
             {isMobile ? (
               <MobileDialogContent
                 keysToRenderInDescription={keysToRenderInDescription}
@@ -64,7 +66,7 @@ const MovieDetails = () => {
               />
             )}
           </DialogContent>
-          <DialogActions>
+          <DialogActions sx={{ backgroundColor }}>
             <Button onClick={toggleMovieDetails} variant='outlined'>
               Close
             </Button>

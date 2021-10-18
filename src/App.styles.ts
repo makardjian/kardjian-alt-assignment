@@ -4,7 +4,7 @@ import { isMobile } from 'react-device-detect';
 const useStyles = makeStyles({
   root: {
     textAlign: 'center',
-    backgroundColor: '#a8cfe4',
+    backgroundColor: '#ADD9F4',
     minHeight: '100vh',
     padding: 20,
   },
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
       padding: '10px',
       display: 'inline-block',
       cursor: 'pointer',
-      backgroundColor: '#fff',
+      backgroundColor: '#FAF9F6',
       border: '1px solid #241e0c',
       borderRadius: '5px',
       minWidth: '1rem',
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
   pageIsActive: {
     '& a': {
       backgroundColor: '#47ccde',
-      color: '#fff',
+      color: '#FAF9F6',
     },
   },
 });

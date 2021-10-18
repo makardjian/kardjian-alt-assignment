@@ -18,8 +18,8 @@ export const useStyles = makeStyles({
     margin: '10px 0px',
   },
   moviePosterImage: {
-    width: '240px',
-    height: '336px',
+    width: '216px',
+    height: '302px',
     borderRadius: 3,
   },
 });

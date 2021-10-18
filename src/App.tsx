@@ -12,8 +12,6 @@ import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDet
 const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
 const RESULTS_PER_PAGE = 10;
 
-console.log({ API_KEY });
-
 const App = () => {
   const classes = useStyles();
 
