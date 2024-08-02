@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Typography } from '@mui/material';
 import { MovieDetailsContext } from './context/MovieDetailsContext';
@@ -8,24 +8,21 @@ import MovieDetails from './components/MovieDetails/MovieDetails';
 import useStyles from './App.styles';
 import type { MovieDetailsType } from './components/MovieDetails/MovieDetails.type';
 import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDetailsKeys';
+import { useSearchResults } from './hooks/useSearchResults';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-const RESULTS_PER_PAGE = 10;
 
 const App = () => {
   const classes = useStyles();
 
+  // COMMON 
+  const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
+  const [searchError, setSearchError] = useState(false);
+  const [shouldFetchSearchResults, setShouldFetchSearchResults] = useState(false);
+
   // USER INPUT
   const [inputValue, setInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-
-  // SEARCH RESULTS
-  const [shouldFetchSearchResults, setShouldFetchSearchResults] =
-    useState(false);
-  const [searchDataIsLoading, setSearchDataIsLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchError, setSearchError] = useState(false);
-  const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
 
   // MOVIE DETAILS
   const [showMovieDetails, setShowMovieDetails] = useState(false);
@@ -35,35 +32,13 @@ const App = () => {
   const [detailsDataIsLoading, setDetailsDataIsLoading] = useState(false);
 
   // PAGINATION
-  const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchApiSearchResults = useCallback(async () => {
-    setSearchDataIsLoading(true);
-    setShouldFetchSearchResults(false);
-    const URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&type=movie&page=${currentPage}`;
-    try {
-      const response = await fetch(URL);
-      const responseData = await response.json();
-      const { Search: searchResults = [], totalResults = 1 } = responseData;
-
-      const newPageCount = Math.ceil(Number(totalResults) / RESULTS_PER_PAGE);
-      setPageCount(newPageCount);
-      setSearchResults(searchResults);
-      setSearchDataIsLoading(false);
-      if (!searchResults.length) {
-        setShowNoResultsMessage(true);
-        setPageCount(0);
-        setCurrentPage(1);
-      }
-    } catch (e) {
-      console.log({ error: e });
-      setSearchDataIsLoading(false);
-      setSearchError(true);
-      setPageCount(0);
-      setCurrentPage(1);
-    }
-  }, [currentPage, searchQuery]);
+  const {
+    searchDataIsLoading,
+    searchResults,
+    pageCount
+  } = useSearchResults({searchQuery, currentPage, shouldFetchSearchResults, setShowNoResultsMessage, setSearchError});
 
   const fetchApiMovieDetails = async (imdbID: string) => {
     setShouldFetchMovieDetails(false);
@@ -106,12 +81,6 @@ const App = () => {
     setCurrentPage(selected + 1);
     setShouldFetchSearchResults(true);
   };
-
-  useEffect(() => {
-    if (shouldFetchSearchResults && searchQuery.length) {
-      fetchApiSearchResults();
-    }
-  }, [shouldFetchSearchResults, searchQuery, fetchApiSearchResults]);
 
   useEffect(() => {
     if (shouldFetchMovieDetails) {
