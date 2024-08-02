@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import ReactPagingate from 'react-paginate';
+import React, { useState, useEffect, useCallback } from 'react';
+import ReactPaginate from 'react-paginate';
 import { Typography } from '@mui/material';
 import { MovieDetailsContext } from './context/MovieDetailsContext';
 import MovieSearchBar from './components/MovieSearchBar';
@@ -9,7 +9,7 @@ import useStyles from './App.styles';
 import type { MovieDetailsType } from './components/MovieDetails/MovieDetails.type';
 import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDetailsKeys';
 
-const API_KEY = '9bc26618'; // would put this in a .env file if not submitting via zip.
+const API_KEY = process.env.REACT_APP_API_KEY;
 const RESULTS_PER_PAGE = 10;
 
 const App = () => {
@@ -38,7 +38,7 @@ const App = () => {
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchApiSearchResults = async () => {
+  const fetchApiSearchResults = useCallback(async () => {
     setSearchDataIsLoading(true);
     setShouldFetchSearchResults(false);
     const URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&type=movie&page=${currentPage}`;
@@ -63,7 +63,7 @@ const App = () => {
       setPageCount(0);
       setCurrentPage(1);
     }
-  };
+  }, [currentPage, searchQuery]);
 
   const fetchApiMovieDetails = async (imdbID: string) => {
     setShouldFetchMovieDetails(false);
@@ -111,13 +111,13 @@ const App = () => {
     if (shouldFetchSearchResults && searchQuery.length) {
       fetchApiSearchResults();
     }
-  }, [shouldFetchSearchResults, searchQuery]);
+  }, [shouldFetchSearchResults, searchQuery, fetchApiSearchResults]);
 
   useEffect(() => {
     if (shouldFetchMovieDetails) {
       fetchApiMovieDetails(movieDetailsId);
     }
-  }, [shouldFetchMovieDetails]);
+  }, [shouldFetchMovieDetails, movieDetailsId]);
 
   return (
     <div className={classes.root}>
@@ -149,7 +149,7 @@ const App = () => {
             {showMovieDetails && <MovieDetails />}
           </MovieDetailsContext.Provider>
           {searchResults.length && pageCount > 0 ? (
-            <ReactPagingate
+            <ReactPaginate
               pageCount={pageCount}
               pageRangeDisplayed={4}
               marginPagesDisplayed={2}
