@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { UseSearchResults } from './useSearchResults.type';
+import { UseSearchResults } from './types/UseSearchResults.type'
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const RESULTS_PER_PAGE = 10;
@@ -31,7 +31,7 @@ export const useSearchResults = ({searchQuery, currentPage, shouldFetchSearchRes
       setSearchError(true);
       setPageCount(0);
     }
-  }, [searchQuery, currentPage, setSearchError, ]);
+  }, [searchQuery, currentPage, setSearchError, setShowNoResultsMessage]);
 
   useEffect(() => {
     if (shouldFetchSearchResults && searchQuery.length) {
