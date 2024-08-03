@@ -12,6 +12,7 @@ import { useMovieDetails } from './hooks/useMovieDetails';
 const App = () => {
   const classes = useStyles();
 
+  console.log('hello App');
   // COMMON 
   const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
   const [searchError, setSearchError] = useState(false);
