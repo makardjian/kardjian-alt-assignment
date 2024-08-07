@@ -15,8 +15,8 @@ const WebDialogContent = ({
   return (
     <div className={classes.dialogContent}>
       <div className={classes.detailsContainer}>
-        {(keysToRenderInDescription as Array<keyof typeof movie>).map(
-          (key: keyof MovieDetailsType, index: number) => {
+        {(keysToRenderInDescription).map(
+          (key, index) => {
             return (
               <div key={`${key}-${index}`}>
                 <Typography sx={sxStyles.detailsLabel}>{key}</Typography>
