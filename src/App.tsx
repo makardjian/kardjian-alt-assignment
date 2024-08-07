@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { Typography } from '@mui/material';
 import { MovieDetailsContext } from './context/MovieDetailsContext';
@@ -6,80 +6,39 @@ import MovieSearchBar from './components/MovieSearchBar';
 import MovieSearchResults from './components/MovieSearchResults/MovieSearchResults';
 import MovieDetails from './components/MovieDetails/MovieDetails';
 import useStyles from './App.styles';
-import type { MovieDetailsType } from './components/MovieDetails/MovieDetails.type';
-import { filterMovieDetailsData } from './components/MovieDetails/filterMovieDetailsKeys';
-
-const API_KEY = process.env.REACT_APP_API_KEY;
-const RESULTS_PER_PAGE = 10;
+import { useSearchResults } from './hooks/useSearchResults';
+import { useMovieDetails } from './hooks/useMovieDetails';
 
 const App = () => {
   const classes = useStyles();
+
+  // COMMON 
+  const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
+  const [searchError, setSearchError] = useState(false);
+  const [shouldFetchSearchResults, setShouldFetchSearchResults] = useState(false);
 
   // USER INPUT
   const [inputValue, setInputValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // SEARCH RESULTS
-  const [shouldFetchSearchResults, setShouldFetchSearchResults] =
-    useState(false);
-  const [searchDataIsLoading, setSearchDataIsLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchError, setSearchError] = useState(false);
-  const [showNoResultsMessage, setShowNoResultsMessage] = useState(false);
-
   // MOVIE DETAILS
-  const [showMovieDetails, setShowMovieDetails] = useState(false);
-  const [shouldFetchMovieDetails, setShouldFetchMovieDetails] = useState(false);
   const [movieDetailsId, setMovieDetailsId] = useState('');
-  const [movieDetails, setMovieDetails] = useState({} as MovieDetailsType);
-  const [detailsDataIsLoading, setDetailsDataIsLoading] = useState(false);
+  const [showMovieDetails, setShowMovieDetails] = useState(false);
 
   // PAGINATION
-  const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchApiSearchResults = useCallback(async () => {
-    setSearchDataIsLoading(true);
-    setShouldFetchSearchResults(false);
-    const URL = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${searchQuery}&type=movie&page=${currentPage}`;
-    try {
-      const response = await fetch(URL);
-      const responseData = await response.json();
-      const { Search: searchResults = [], totalResults = 1 } = responseData;
+  const {
+    searchDataIsLoading,
+    searchResults,
+    pageCount
+  } = useSearchResults({searchQuery, currentPage, shouldFetchSearchResults, setShowNoResultsMessage, setSearchError});
 
-      const newPageCount = Math.ceil(Number(totalResults) / RESULTS_PER_PAGE);
-      setPageCount(newPageCount);
-      setSearchResults(searchResults);
-      setSearchDataIsLoading(false);
-      if (!searchResults.length) {
-        setShowNoResultsMessage(true);
-        setPageCount(0);
-        setCurrentPage(1);
-      }
-    } catch (e) {
-      console.log({ error: e });
-      setSearchDataIsLoading(false);
-      setSearchError(true);
-      setPageCount(0);
-      setCurrentPage(1);
-    }
-  }, [currentPage, searchQuery]);
 
-  const fetchApiMovieDetails = async (imdbID: string) => {
-    setShouldFetchMovieDetails(false);
-    setDetailsDataIsLoading(true);
-    const URL = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}&type=movie`;
-    try {
-      const response = await fetch(URL);
-      const movieDetails = await response.json();
-
-      const cleanMovieDetails = filterMovieDetailsData(movieDetails);
-      setMovieDetails(cleanMovieDetails);
-      setDetailsDataIsLoading(false);
-    } catch (e) {
-      console.log({ error: e });
-    }
-  };
+  const {
+    movieDetails,
+    detailsDataIsLoading
+  } = useMovieDetails(movieDetailsId);
 
   const onInputChange = (newValue: string) => {
     setInputValue(newValue);
@@ -99,7 +58,6 @@ const App = () => {
 
   const onUpdateMovieDetailsId = (id: string) => {
     setMovieDetailsId(id);
-    setShouldFetchMovieDetails(true);
   };
 
   const onPageChange = ({ selected }: { selected: number }) => {
@@ -107,17 +65,6 @@ const App = () => {
     setShouldFetchSearchResults(true);
   };
 
-  useEffect(() => {
-    if (shouldFetchSearchResults && searchQuery.length) {
-      fetchApiSearchResults();
-    }
-  }, [shouldFetchSearchResults, searchQuery, fetchApiSearchResults]);
-
-  useEffect(() => {
-    if (shouldFetchMovieDetails) {
-      fetchApiMovieDetails(movieDetailsId);
-    }
-  }, [shouldFetchMovieDetails, movieDetailsId]);
 
   return (
     <div className={classes.root}>
